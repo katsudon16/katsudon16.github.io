@@ -1,5 +1,14 @@
-import React from "react"
+import React from 'react'
+import { Hero, Timeline, Publication } from './../components';
+import styled, { css } from 'styled-components'
+import "../styles/global.css"
 
-export default function Home() {
-  return <div>Hello world!</div>
-}
+const Home = () => (
+  <div>
+    <Hero />
+    <Timeline />
+    <Publication />
+  </div>
+);
+
+export default Home;
