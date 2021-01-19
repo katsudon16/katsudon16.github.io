@@ -2,7 +2,7 @@ import React from 'react'
 import SectionContainer from '../section'
 
 const Timeline = () => (
-    <SectionContainer>
+    <SectionContainer color>
         test
     </SectionContainer>
 );

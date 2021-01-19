@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import SectionContainer from '../section'
 
 const Publication = () => (
-    <SectionContainer color>
+    <SectionContainer>
         test
     </SectionContainer>
 );
