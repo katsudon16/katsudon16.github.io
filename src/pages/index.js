@@ -1,10 +1,11 @@
 import React from 'react'
-import { Hero, Timeline, Publication } from './../components';
+import { Hero, Timeline, Publication, NavBar } from './../components';
 import styled, { css } from 'styled-components'
 import "../styles/global.css"
 
 const Home = () => (
-  <div>
+  <div id='test'>
+    <NavBar />
     <Hero />
     <Timeline />
     <Publication />

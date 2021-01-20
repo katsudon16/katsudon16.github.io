@@ -1,12 +1,9 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const SectionContainer = styled.div`
-  text-align: center;
-  padding: 20px;
-
-  ${props => props.color && css `
-    background-color: #90d68d;
-  `}
+  width: 100wh;
+  display: flex;
+  justify-content: center;
+  ${props => props.addCSS}
 `
 export default SectionContainer;
