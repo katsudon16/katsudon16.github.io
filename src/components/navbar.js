@@ -1,14 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
+import styled, { css } from 'styled-components'
 import { device, palette } from './const'
 
 const navbarHeight = '50px';
 const homeIconSize = '35px';
 const menuIconSize = '25px';
+const closeIconSize = '20px';
+const sectionMenuWidth = '130px';
+const sectionMenuContainerWidth = '200px'; // tablet/mobile only
 
 const Container = styled.div`
     position: absolute;
-    width: 100vw;
+    width: 100%;
     height: ${navbarHeight};
     z-index: 20;
     display: flex;
@@ -16,6 +19,7 @@ const Container = styled.div`
     align-items: center;
     background-color: rgba(3, 25, 38, 0.5);
 `
+// Left menu (Home)
 const LeftMenu = styled.div`
     height: ${homeIconSize};
     width: ${homeIconSize};
@@ -37,22 +41,7 @@ const LeftMenu = styled.div`
         margin-left: 10px;
     }
 `
-const RightMenu = styled.div`
-    box-sizing: border-box;
-    height: ${navbarHeight};
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    margin-right: 50px;
-
-    @media ${device.mobile} {
-        display: none;
-    }
-
-    @media ${device.tablet} {
-        display: none;
-    }
-`
+// Right menu (all sections)
 const RightMenuIcon = styled.div`
     height: ${menuIconSize};
     width: ${menuIconSize};
@@ -78,9 +67,71 @@ const RightMenuIcon = styled.div`
         display: none;
     }
 `
+const RightMenuMobileTablet = css`
+    flex-direction: column;
+    background-color: rgb(3, 25, 38);
+    position: fixed;
+    width: ${sectionMenuContainerWidth};
+    height: 100vh;
+    top: 0;
+    right: -${sectionMenuContainerWidth};
+    margin-right: 0;
+    transition: right 0.4s;
 
+    &.visible {
+        right: 0;
+    }
+`
+const RightMenuContainer = styled.div`
+    box-sizing: border-box;
+    height: ${navbarHeight};
+    display: flex;
+    flex-direction: row;
+    margin-right: 50px;
+    overflow: hidden;
+
+    @media ${device.mobile} {
+        ${RightMenuMobileTablet}
+    }
+
+    @media ${device.tablet} {
+        ${RightMenuMobileTablet}
+    }
+`
+const CloseIconContainer = styled.div`
+    width: ${sectionMenuContainerWidth};
+    box-sizing: border-box;
+`
+const CloseIcon = styled.div`
+    height: ${closeIconSize};
+    width: ${closeIconSize};
+    margin: 20px;
+    float: right;
+    position: relative;
+    background: url('close.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    &:hover {
+        cursor: pointer;
+        background: url('close_hover.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    @media ${device.laptop} {
+        display: none;
+    }
+`
+const SectionMenuMobileTablet = css`
+    display: block;
+    padding: 20px;
+    width: 100%;
+`
 const SectionMenu = styled.div`
-    width: 130px;
+    width: ${sectionMenuWidth};
     box-sizing: border-box;
     color: ${palette.color2};
     display: flex;
@@ -91,18 +142,36 @@ const SectionMenu = styled.div`
         cursor: pointer;
         color: ${palette.bgContrast};
     }
+
+    @media ${device.mobile} {
+        ${SectionMenuMobileTablet}
+    }
+
+    @media ${device.tablet} {
+        ${SectionMenuMobileTablet}
+    }
 `
 
-const NavBar = () => (
-    <Container>
-        <LeftMenu />
-        <RightMenuIcon />
-        <RightMenu>
-            <SectionMenu>Timeline</SectionMenu>
-            <SectionMenu>Publication</SectionMenu>
-            <SectionMenu>Contact</SectionMenu>
-        </RightMenu>
-    </Container>
-);
+const NavBar = () => {
+    const [menuToggled, setMenuToggled] = useState(false);
+    const toggleRightMenu = () => {
+        setMenuToggled(!menuToggled);
+    }
+
+    return (
+        <Container>
+            <LeftMenu />
+            <RightMenuIcon onClick={toggleRightMenu} />
+            <RightMenuContainer className={menuToggled ? 'visible' : null}>
+                <CloseIconContainer>
+                    <CloseIcon onClick={toggleRightMenu} />
+                </CloseIconContainer>
+                <SectionMenu>Timeline</SectionMenu>
+                <SectionMenu>Publication</SectionMenu>
+                <SectionMenu>Contact</SectionMenu>
+            </RightMenuContainer>
+        </Container>
+    );
+}
 
 export default NavBar;

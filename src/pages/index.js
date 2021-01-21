@@ -1,15 +1,18 @@
 import React from 'react'
 import { Hero, Timeline, Publication, NavBar } from './../components';
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import "../styles/global.css"
 
+const Container = styled.div`
+`
+
 const Home = () => (
-  <div id='test'>
+  <Container>
     <NavBar />
     <Hero />
     <Timeline />
     <Publication />
-  </div>
+  </Container>
 );
 
 export default Home;
