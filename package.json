@@ -14,10 +14,13 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "gatsby": "^2.26.1",
+    "gatsby": "^2.31.1",
+    "gatsby-plugin-sass": "^3.1.0",
     "gh-pages": "^3.1.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-responsive": "^8.2.0",
+    "sass": "^1.32.5",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {

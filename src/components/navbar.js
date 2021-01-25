@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
-import { device, palette } from './const'
+import { device, palette, titleLabels } from './const'
 
 const navbarHeight = '50px';
 const homeIconSize = '35px';
@@ -133,11 +133,12 @@ const SectionMenuMobileTablet = css`
 const SectionMenu = styled.div`
     width: ${sectionMenuWidth};
     box-sizing: border-box;
-    color: ${palette.color2};
+    color: ${palette.light};
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    text-transform: capitalize;
     &:hover {
         cursor: pointer;
         color: ${palette.bgContrast};
@@ -166,9 +167,9 @@ const NavBar = () => {
                 <CloseIconContainer>
                     <CloseIcon onClick={toggleRightMenu} />
                 </CloseIconContainer>
-                <SectionMenu>Timeline</SectionMenu>
-                <SectionMenu>Publication</SectionMenu>
-                <SectionMenu>Contact</SectionMenu>
+                <SectionMenu>{titleLabels.timeline}</SectionMenu>
+                <SectionMenu>{titleLabels.publication}</SectionMenu>
+                <SectionMenu>{titleLabels.contact}</SectionMenu>
             </RightMenuContainer>
         </Container>
     );

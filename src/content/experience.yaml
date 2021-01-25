@@ -1,0 +1,21 @@
+content:
+- year: 2016
+  work: false
+  desc: Obtained a Bachelor of Engineering in Computer Science.
+  location: The Hong Kong University of Science and Technology
+  skills: ~
+- year: 2016 - 2018
+  work: true
+  desc: Worked as a software engineer, building web and mobile applications, including a cancer detection web application for histopathology images.
+  location: Altitude Labs; Imsight Medical
+  skills: ['Git', 'JavaScript', 'NodeJS', 'React', 'React Native', 'AWS (EC2, S3)']
+- year: 2018 - 2019
+  work: true
+  desc: Took my first step in shifting my career from software engineering to the biomedical field! Worked as a research assistant in modeling Dengue dynamics in Hong Kong.
+  location: Department of Biomedical Sciences, City University of Hong Kong
+  skills: ['R', 'Python']
+- year: 2019 - 2021
+  work: false
+  desc: Obtained a Biomedical Informatics Master's degree.
+  location: Harvard Medical School, Boston
+  skills: ~

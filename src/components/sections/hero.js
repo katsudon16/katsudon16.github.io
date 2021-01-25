@@ -4,20 +4,21 @@ import SectionContainer from '../section'
 import { device, palette } from '../const'
 
 const addBgImage = css`
-    height: 85vh;
+    height: 100vh;
     background-image: url('bg.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    max-height: 1200px;
 
     @media ${device.mobile} {
-        height: 50vh;
+        height: 65vh;
     }
 `
 const Container = styled.div`
     height: 100%;
     width: 100%;
-    background-color: rgba(3, 25, 38, 0.8);
+    background-color: rgba(3, 25, 38, 0.75);
     display: flex;
     position: relative;
 `
@@ -31,12 +32,13 @@ const TextBox = styled.div`
     flex-direction: column;
 `
 const Title1 = styled.h2`
-    color: ${palette.color2};
+    color: ${palette.light};
     margin-bottom: 0;
 `
 const Title2 = styled.h1`
     color: ${palette.bgContrast};
     font-weight: bold;
+    text-align: center;
     text-transform: uppercase;
     font-size: xxx-large;
     margin-top: 10px;
@@ -45,9 +47,10 @@ const Title2 = styled.h1`
         font-size: xx-large;
     }
 `
-const Paragraph = styled.text`
-    color: ${palette.color2};
+const Paragraph = styled.div`
+    color: ${palette.light};
     max-width: 80vw;
+    min-width: 300px;
     text-align: center;
 `
 const Arrow = styled.div`
@@ -61,21 +64,13 @@ const Hero = () => (
     <SectionContainer addCSS={addBgImage}>
         <Container>
             <TextBox>
-                <Title1>Hey, my name is</Title1>
+                <Title1>Hello, my name is</Title1>
                 <Title2>Kathleen Sucipto</Title2>
                 <Paragraph>
                 I am a Master of Biomedical Informatics student at Harvard Medical School, graduating in March 2021.
                 </Paragraph>
             </TextBox>
         </Container>
-        {/* <Container>
-            <ParagraphBox>
-                <Paragraph>
-                I am a Master of Biomedical Informatics student at Harvard Medical School, graduating in March 2021.
-                </Paragraph>
-            </ParagraphBox>
-        </Container>
-        <Arrow /> */}
     </SectionContainer>
 );
 
