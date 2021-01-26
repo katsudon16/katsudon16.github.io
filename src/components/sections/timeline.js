@@ -30,7 +30,6 @@ const Container = styled.div`
 
     path {
         fill: none;
-        stroke: #043e61;
         stroke-width: 3;
         stroke-dasharray: 600px;
         stroke-dashoffset: 600px;
@@ -70,12 +69,26 @@ const Title = styled.h1`
 `
 // timeline
 const TimelineSVG = ({
+    idx = 0,
     className = '',
     verticalLength = 40,
-}) =>
-    <svg version='1.1' className={className} viewBox={`0 0 296.9 ${verticalLength*2+10}`}>
-        <path d={`M4.17,0v${verticalLength}c0,2.76,2.99,5,6.68,5h274.91c3.69,0,6.68,2.24,6.68,5v${verticalLength}`}/>
-    </svg>;
+}) => {
+    const startColor = className.includes('flipHorizontal') ? palette.dark : palette.light;
+    const stopColor = className.includes('flipHorizontal') ? palette.light : palette.dark;
+    return (
+        <svg version='1.1' className={className} viewBox={`0 0 296.9 ${verticalLength * 2 + 10}`}>
+            <defs>
+                <linearGradient id={`gradient${idx}`} x1='0%' y1='0%' x2='0%' y2='100%'>
+                    <stop offset='0%' stop-color={startColor} />
+                    <stop offset='100%' stop-color={stopColor} />
+                </linearGradient>
+            </defs>
+            <path
+                stroke={`url(#gradient${idx})`}
+                d={`M4.17,0v${verticalLength}c0,2.76,2.99,5,6.68,5h274.91c3.69,0,6.68,2.24,6.68,5v${verticalLength}`} />
+        </svg>
+    );
+}
 
 const TimelineContainer = styled.div`
     position: relative;
@@ -205,7 +218,7 @@ const Timeline = () => {
                         const flipClass = i % 2 === 1 ? 'flipHorizontal' : '';
                         return (
                             <TimelineSVG
-                                key={i} verticalLength={svgVerticalLength}
+                                key={i} idx={i} verticalLength={svgVerticalLength}
                                 className={`animate ${flipClass}`} />
                         );
                     })}
