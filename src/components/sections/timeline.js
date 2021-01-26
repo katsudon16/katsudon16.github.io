@@ -190,17 +190,40 @@ const Skill = styled.div`
 `
 const Point = styled.div`
     position: absolute;
-    background-color: ${palette.color1};
+    background-color: ${palette.medium};
     border-radius: 50%;
-    height: 10px;
-    width: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    height: 30px;
+    width: 30px;
     z-index: 20;
-    transition: background-color 0.5s;
+    box-shadow: 3px 3px 9px #a7aeb3;
+    top: ${props => props.top}px;
 
-    &.reached {
-        background-color: ${palette.bg}
+    @media ${device.mobile} {
+        width: 15px;
+        height: 15px;
+    }
+
+    &.pointRight {
+        right: -3px;
+
+        @media ${device.mobile} {
+        }
+
+        @media ${device.tablet} {
+            right: -6px;
+        }
+    }
+
+    &.pointLeft {
+        left: -3px;
+
+        @media ${device.mobile} {
+
+        }
+
+        @media ${device.tablet} {
+            left: -8px;            
+        }
     }
 `
 const Timeline = () => {
@@ -214,6 +237,7 @@ const Timeline = () => {
             <Container>
                 <Title>{titleLabels.timeline}</Title>
                 <TimelineContainer>
+                    <Point top='50' className='pointLeft' />
                     {YAMLData.content.map((_, i) => {
                         const flipClass = i % 2 === 1 ? 'flipHorizontal' : '';
                         return (
@@ -225,6 +249,7 @@ const Timeline = () => {
                     {YAMLData.content.map((data, i) => {
                         const paragraphClass = i % 2 === 0 ? 'right' : 'left';
                         const top = pTopInit + i * svgHeight;
+                        const pointClass = i % 2 === 0 ? 'pointRight' : 'pointLeft';
                         return (
                             <Paragraph key={i} className={paragraphClass} top={top}>
                                 <h1 className='year'>{data.year}</h1>
@@ -235,6 +260,11 @@ const Timeline = () => {
                                 )}
                             </Paragraph>
                         );
+                    })}
+                    {YAMLData.content.map((_, i) => {
+                        const top = pTopInit + i * svgHeight + 13;
+                        const pointClass = i % 2 === 0 ? 'pointRight' : 'pointLeft';
+                        return <Point key={i} top={top} className={pointClass} />;
                     })}
                 </TimelineContainer>
             </Container>
