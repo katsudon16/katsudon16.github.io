@@ -39,12 +39,13 @@ const Title2 = styled.h1`
     color: ${palette.bgContrast};
     font-weight: bold;
     text-align: center;
-    text-transform: uppercase;
     font-size: xxx-large;
     margin-top: 10px;
+    font-family: Allura;
+    font-size: 70px;
 
     @media ${device.mobile} {
-        font-size: xx-large;
+        font-size: 50px;
     }
 `
 const Paragraph = styled.div`

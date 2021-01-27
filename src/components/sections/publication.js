@@ -17,12 +17,13 @@ const Container = styled.div`
 const Title = styled.h1`
     width: 250px;
     padding: 40px 0;
-    font-size: xx-large;
     color: ${palette.white};
-    text-transform: uppercase;
+    text-transform: capitalize;
+    font-family: Allura;
+    font-size: 70px;
 
     @media ${device.mobile} {
-        font-size: x-large;
+        font-size: 50px;
     }
 `
 const Item = styled.div`

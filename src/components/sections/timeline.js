@@ -57,15 +57,16 @@ const Title = styled.h1`
     background-color: white;
     position: absolute;
     background-color: ${palette.white};
-    font-size: xx-large;
     color: ${palette.bg};
-    text-transform: uppercase;
+    text-transform: capitalize;
     display: table-cell;
     vertical-align: middle;
     z-index: 10;
+    font-family: Allura;
+    font-size: 70px;
 
     @media ${device.mobile} {
-        font-size: x-large;
+        font-size: 50px;
         width: 180px;
     }
 `
@@ -94,14 +95,14 @@ const TimelineSVG = ({
 
 const TimelineContainer = styled.div`
     position: relative;
-    margin-top: 60px;
+    margin-top: 140px;
     display: flex;
     flex-direction: column;
     padding-top: 20px;
     align-items: center;
 
     @media ${device.mobile} {
-        margin-top: 70px;
+        margin-top: 110px;
     }
 `
 const Paragraph = styled.div`
@@ -143,6 +144,7 @@ const Paragraph = styled.div`
 
     .year {
         font-size: xx-large;
+        font-family: Allura;
 
         @media ${device.mobile} {
             font-size: x-large;
