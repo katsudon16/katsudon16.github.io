@@ -26,5 +26,5 @@ export const palette = {
 export const titleLabels = {
     timeline: 'experience',
     publication: 'publications',
-    contact: 'contact',
+    contact: 'get in touch?',
 }

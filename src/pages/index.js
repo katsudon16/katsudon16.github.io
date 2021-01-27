@@ -1,5 +1,5 @@
 import React from 'react'
-import { Hero, Timeline, Publication, NavBar } from './../components';
+import { Hero, Timeline, Publication, NavBar, Contact } from './../components';
 import styled from 'styled-components'
 import '../styles/global.scss'
 
@@ -13,6 +13,7 @@ const Home = () => (
     <Hero />
     <Timeline />
     <Publication />
+    <Contact />
   </Container>
 );
 
