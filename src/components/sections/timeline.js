@@ -82,8 +82,8 @@ const TimelineSVG = ({
         <svg version='1.1' className={className} viewBox={`0 0 296.9 ${verticalLength * 2 + 10}`}>
             <defs>
                 <linearGradient id={`gradient${idx}`} x1='0%' y1='0%' x2='0%' y2='100%'>
-                    <stop offset='0%' stop-color={startColor} />
-                    <stop offset='100%' stop-color={stopColor} />
+                    <stop offset='0%' stopColor={startColor} />
+                    <stop offset='100%' stopColor={stopColor} />
                 </linearGradient>
             </defs>
             <path
@@ -237,7 +237,7 @@ const Timeline = () => {
     const pTopInit = isMobile ? 130 : (isTablet ? 140 : 145);
     const svgHeight = isMobile ? 210 : (isTablet ? 225 : 245);
     return (
-        <SectionContainer addCSS={sectionContainerCSS}>
+        <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.timeline}>
             <Container>
                 <Title>{titleLabels.timeline}</Title>
                 <TimelineContainer>

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import SectionContainer from '../section'
-import { device, palette } from '../const'
+import { device, palette, titleLabels } from '../const'
 
 const addBgImage = css`
     height: 100vh;
@@ -62,7 +62,7 @@ const Arrow = styled.div`
 `
 
 const Hero = () => (
-    <SectionContainer addCSS={addBgImage}>
+    <SectionContainer addCSS={addBgImage} id={titleLabels.hero}>
         <Container>
             <TextBox>
                 <Title1>Hello, my name is</Title1>

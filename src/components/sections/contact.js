@@ -47,9 +47,8 @@ const EmailButton = styled.a`
     }
 `
 
-
 const Contact = () => (
-    <SectionContainer addCSS={sectionContainerCSS}>
+    <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.contact}>
         <Container>
             <Title>{titleLabels.contact}</Title>
             <p>Feel free to contact me or say hi!</p>

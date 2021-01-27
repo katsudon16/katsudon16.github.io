@@ -29,8 +29,12 @@ const Title = styled.h1`
 const Item = styled.div`
     width: 100%;
     margin-top: 70px;
-    margin-left: 20px;
+    margin-left: 60px;
     font-size: 18px;
+
+    @media ${device.mobile} {
+        margin-left: 20px;
+    }
 
     a {
         font-size: 24px;
@@ -47,11 +51,8 @@ const Item = styled.div`
         color: ${palette.white};
     }
 `
-
-
-
 const Publication = () => (
-    <SectionContainer addCSS={sectionContainerCSS}>
+    <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.publication}>
         <Container>
             <Title>{titleLabels.publication}</Title>
             {YAMLData.content.map((data, i) => {

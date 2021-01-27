@@ -24,6 +24,7 @@ export const palette = {
 }
 
 export const titleLabels = {
+    hero: 'home',
     timeline: 'experience',
     publication: 'publications',
     contact: 'get in touch?',

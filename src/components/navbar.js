@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Component } from 'react'
 import styled, { css } from 'styled-components'
 import { device, palette, titleLabels } from './const'
 
@@ -6,18 +6,24 @@ const navbarHeight = '50px';
 const homeIconSize = '35px';
 const menuIconSize = '25px';
 const closeIconSize = '20px';
-const sectionMenuWidth = '130px';
-const sectionMenuContainerWidth = '200px'; // tablet/mobile only
+const sectionMenuWidth = '180px';
+const sectionMenuContainerWidth = '240px'; // tablet/mobile only
 
 const Container = styled.div`
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: ${navbarHeight};
     z-index: 20;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(3, 25, 38, 0.5);
+    background-color: rgba(3, 25, 38, 0.7);
+    top: -${navbarHeight};
+    transition: top 0.5s;
+
+    &.visible {
+        top: 0;
+    }
 `
 // Left menu (Home)
 const LeftMenu = styled.div`
@@ -130,15 +136,16 @@ const SectionMenuMobileTablet = css`
     padding: 20px;
     width: 100%;
 `
-const SectionMenu = styled.div`
+const SectionMenu = styled.a`
     width: ${sectionMenuWidth};
     box-sizing: border-box;
     color: ${palette.white};
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 20px;
     text-transform: capitalize;
+    text-decoration: none;
     &:hover {
         cursor: pointer;
         color: ${palette.bgContrast};
@@ -153,26 +160,57 @@ const SectionMenu = styled.div`
     }
 `
 
-const NavBar = () => {
-    const [menuToggled, setMenuToggled] = useState(false);
-    const toggleRightMenu = () => {
-        setMenuToggled(!menuToggled);
+class NavBar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            prevScrollPos: window.pageYOffset,
+            menuToggled: false,
+            visible: true,
+        }
     }
 
-    return (
-        <Container>
-            <LeftMenu />
-            <RightMenuIcon onClick={toggleRightMenu} />
-            <RightMenuContainer className={menuToggled ? 'visible' : null}>
-                <CloseIconContainer>
-                    <CloseIcon onClick={toggleRightMenu} />
-                </CloseIconContainer>
-                <SectionMenu>{titleLabels.timeline}</SectionMenu>
-                <SectionMenu>{titleLabels.publication}</SectionMenu>
-                <SectionMenu>{titleLabels.contact}</SectionMenu>
-            </RightMenuContainer>
-        </Container>
-    );
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll)
+    }
+
+    handleScroll = () => {
+        const currScrollPos = window.pageYOffset;
+        const prevScrollPos = this.state.prevScrollPos;
+        this.setState({
+            visible: currScrollPos < prevScrollPos || currScrollPos === 0,
+            prevScrollPos: currScrollPos,
+        });
+    }
+
+    toggleRightMenu = () => {
+        this.setState({ menuToggled: !this.state.menuToggled });
+    }
+
+    scrollToSection = (label) => {
+        document.getElementById(label).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    render() {
+        return (
+            <Container className={this.state.visible ? 'visible' : ''}>
+                <LeftMenu onClick={() => this.scrollToSection(titleLabels.hero)} />
+                <RightMenuIcon onClick={this.toggleRightMenu} />
+                <RightMenuContainer className={this.state.menuToggled ? 'visible' : null}>
+                    <CloseIconContainer>
+                        <CloseIcon onClick={this.toggleRightMenu} />
+                    </CloseIconContainer>
+                    <SectionMenu onClick={() => this.scrollToSection(titleLabels.timeline)}>{titleLabels.timeline}</SectionMenu>
+                    <SectionMenu onClick={() => this.scrollToSection(titleLabels.publication)}>{titleLabels.publication}</SectionMenu>
+                    <SectionMenu onClick={() => this.scrollToSection(titleLabels.contact)}>{titleLabels.contact}</SectionMenu>
+                </RightMenuContainer>
+            </Container>
+        );
+    }
 }
 
 export default NavBar;
