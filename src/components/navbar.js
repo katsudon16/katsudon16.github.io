@@ -133,7 +133,7 @@ const SectionMenuMobileTablet = css`
 const SectionMenu = styled.div`
     width: ${sectionMenuWidth};
     box-sizing: border-box;
-    color: ${palette.light};
+    color: ${palette.white};
     display: flex;
     justify-content: center;
     align-items: center;

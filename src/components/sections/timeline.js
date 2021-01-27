@@ -1,15 +1,13 @@
 import React from 'react'
 import SectionContainer from '../section'
 import styled, { css } from 'styled-components'
-import { device, palette, titleLabels } from '../const'
+import { device, palette, titleLabels, getPx } from '../const'
 import { useMediaQuery } from 'react-responsive'
 import YAMLData from '../../content/experience.yaml'
 
 const containerWidthLaptop = 800;
 const containerWidthTablet = 480;
 const containerWidthMobile = 300;
-
-const getPx = (px) => `${px}px`;
 
 const sectionContainerCSS = css`
     background-color: ${palette.white}
@@ -42,6 +40,10 @@ const Container = styled.div`
     .animate path {
         animation: draw 2s linear forwards;
     }
+
+    .lastSVG {
+        margin-bottom: 100px;
+    }
     
     @keyframes draw {
         to {
@@ -73,8 +75,8 @@ const TimelineSVG = ({
     className = '',
     verticalLength = 40,
 }) => {
-    const startColor = className.includes('flipHorizontal') ? palette.dark : palette.light;
-    const stopColor = className.includes('flipHorizontal') ? palette.light : palette.dark;
+    const startColor = className.includes('flipHorizontal') ? palette.dark : palette.white;
+    const stopColor = className.includes('flipHorizontal') ? palette.white : palette.dark;
     return (
         <svg version='1.1' className={className} viewBox={`0 0 296.9 ${verticalLength * 2 + 10}`}>
             <defs>
@@ -181,7 +183,7 @@ const Skill = styled.div`
     border-radius: 5px;
     display: inline-block;
     background-color: ${palette.medium};
-    color: ${palette.light};
+    color: ${palette.white};
     margin: 0 2.5px 5px 2.5px;
 
     @media ${device.mobile} {
@@ -240,16 +242,16 @@ const Timeline = () => {
                     <Point top='50' className='pointLeft' />
                     {YAMLData.content.map((_, i) => {
                         const flipClass = i % 2 === 1 ? 'flipHorizontal' : '';
+                        const lastClass = i === YAMLData.content.length - 1 ? 'lastSVG' : '';
                         return (
                             <TimelineSVG
                                 key={i} idx={i} verticalLength={svgVerticalLength}
-                                className={`animate ${flipClass}`} />
+                                className={`animate ${flipClass} ${lastClass}`} />
                         );
                     })}
                     {YAMLData.content.map((data, i) => {
                         const paragraphClass = i % 2 === 0 ? 'right' : 'left';
                         const top = pTopInit + i * svgHeight;
-                        const pointClass = i % 2 === 0 ? 'pointRight' : 'pointLeft';
                         return (
                             <Paragraph key={i} className={paragraphClass} top={top}>
                                 <h1 className='year'>{data.year}</h1>

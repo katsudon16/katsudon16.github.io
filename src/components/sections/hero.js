@@ -32,7 +32,7 @@ const TextBox = styled.div`
     flex-direction: column;
 `
 const Title1 = styled.h2`
-    color: ${palette.light};
+    color: ${palette.white};
     margin-bottom: 0;
 `
 const Title2 = styled.h1`
@@ -48,7 +48,7 @@ const Title2 = styled.h1`
     }
 `
 const Paragraph = styled.div`
-    color: ${palette.light};
+    color: ${palette.white};
     max-width: 80vw;
     min-width: 300px;
     text-align: center;
