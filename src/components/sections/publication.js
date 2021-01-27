@@ -40,9 +40,9 @@ const Item = styled.div`
         font-size: 24px;
         font-weight: bold;
         text-decoration: none;
-        color: ${palette.light};
+        color: ${palette.bgContrast};
         &:hover {
-            color: ${palette.bgContrast};
+            color: ${palette.light};
             cursor: pointer;
         }
     }

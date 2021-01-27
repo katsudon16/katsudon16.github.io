@@ -12,7 +12,7 @@ const addBgImage = css`
     max-height: 1200px;
 
     @media ${device.mobile} {
-        height: 65vh;
+        max-height: 1000px;
     }
 `
 const Container = styled.div`

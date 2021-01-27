@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 import SectionContainer from '../section'
 import styled, { css } from 'styled-components'
-import { device, palette, titleLabels, getPx } from '../const'
-import { useMediaQuery } from 'react-responsive'
+import { device, palette, titleLabels, getPx, deviceSize } from '../const'
 import YAMLData from '../../content/experience.yaml'
 
 const containerWidthLaptop = 800;
 const containerWidthTablet = 480;
 const containerWidthMobile = 300;
+const svgAnimationTime = 1; // second
 
 const sectionContainerCSS = css`
     background-color: ${palette.white}
@@ -38,7 +38,7 @@ const Container = styled.div`
     }
     
     .animate path {
-        animation: draw 2s linear forwards;
+        animation: draw ${svgAnimationTime}s linear forwards;
     }
 
     .lastSVG {
@@ -110,6 +110,7 @@ const Paragraph = styled.div`
     position: absolute;
     top: ${props => props.top}px;
     width: ${getPx(containerWidthLaptop - 30)};
+    opacity: 0;
 
     @media ${device.mobile} {
         width: ${getPx(containerWidthMobile - 30)};
@@ -121,19 +122,31 @@ const Paragraph = styled.div`
 
     &.left {
         text-align: left;
-        left: 20px;
+        left: 100%;
+        transition: opacity 1s, left 1s;
 
-        @media ${device.mobile} {
-            left: 10px;
+        &.visible {
+            opacity: 1;
+            left: 20px;
+
+            @media ${device.mobile} {
+                left: 10px;
+            }
         }
     }
 
     &.right {
         text-align: right;
-        right: 20px;
+        right: 100%;
+        transition: opacity 1s, right 1s;
 
-        @media ${device.mobile} {
-            right: 10px;
+        &.visible {
+            opacity: 1;
+            right: 20px;
+
+            @media ${device.mobile} {
+                right: 10px;
+            }
         }
     }
 
@@ -198,13 +211,19 @@ const Point = styled.div`
     border-radius: 50%;
     height: 30px;
     width: 30px;
-    z-index: 20;
+    z-index: 10;
     box-shadow: 3px 3px 9px #a7aeb3;
     top: ${props => props.top}px;
+    opacity: 0;
+    transition: opacity ${svgAnimationTime}s;
 
     @media ${device.mobile} {
         width: 15px;
         height: 15px;
+    }
+
+    &.visible {
+        opacity: 1;
     }
 
     &.pointRight {
@@ -230,50 +249,125 @@ const Point = styled.div`
         }
     }
 `
-const Timeline = () => {
-    const isMobile = useMediaQuery({ query: device.mobile });
-    const isTablet = useMediaQuery({ query: device.tablet });
-    const svgVerticalLength = isMobile ? 100 : (isTablet ? 65 : 40);
-    const pTopInit = isMobile ? 130 : (isTablet ? 140 : 145);
-    const svgHeight = isMobile ? 210 : (isTablet ? 225 : 245);
-    return (
-        <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.timeline}>
-            <Container>
-                <Title>{titleLabels.timeline}</Title>
-                <TimelineContainer>
-                    <Point top='50' className='pointLeft' />
-                    {YAMLData.content.map((_, i) => {
-                        const flipClass = i % 2 === 1 ? 'flipHorizontal' : '';
-                        const lastClass = i === YAMLData.content.length - 1 ? 'lastSVG' : '';
-                        return (
-                            <TimelineSVG
-                                key={i} idx={i} verticalLength={svgVerticalLength}
-                                className={`animate ${flipClass} ${lastClass}`} />
-                        );
-                    })}
-                    {YAMLData.content.map((data, i) => {
-                        const paragraphClass = i % 2 === 0 ? 'right' : 'left';
-                        const top = pTopInit + i * svgHeight;
-                        return (
-                            <Paragraph key={i} className={paragraphClass} top={top}>
-                                <h1 className='year'>{data.year}</h1>
-                                <p className='desc'>{data.desc}</p>
-                                <p className='loc'>{data.location}</p>
-                                {data.skills && data.skills.map((skill, j) =>
-                                    <Skill key={j}>{skill}</Skill>
-                                )}
-                            </Paragraph>
-                        );
-                    })}
-                    {YAMLData.content.map((_, i) => {
-                        const top = pTopInit + i * svgHeight + 13;
-                        const pointClass = i % 2 === 0 ? 'pointRight' : 'pointLeft';
-                        return <Point key={i} top={top} className={pointClass} />;
-                    })}
-                </TimelineContainer>
-            </Container>
-        </SectionContainer>
-    );
+class Timeline extends Component {
+    constructor(props) {
+        super(props);
+        const windowType = this.getWindowType();
+        this.state = {
+            isMobile: windowType === 'mobile',
+            isTablet: windowType === 'tablet',
+            top: 0,
+            lastAnimate: -1,
+            animated: YAMLData.content.map((_, i) => false),
+        }
+    }
+
+    componentDidMount() {
+        const div = document.getElementById(titleLabels.timeline);
+        this.setState({
+            top: div.getBoundingClientRect().top,
+        })
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+
+    getWindowType = () => {
+        const width = window.innerWidth;
+        if (width <= deviceSize.smallMax) return 'mobile';
+        if (width >= deviceSize.largeMin) return 'laptop';
+        return 'tablet';
+    }
+
+    handleResize = () => {
+        const windowType = this.getWindowType();
+        this.setState({
+            isMobile: windowType === 'mobile',
+            isTablet: windowType === 'tablet',
+        });
+    }
+
+    handleScroll = () => {
+        const updateAnimation = (start, end) => {
+            setTimeout(() => {
+                console.log("timeout");
+                let { animated } = this.state;
+                animated[start] = true;
+                this.setState({
+                    animated,
+                    lastAnimate: start,
+                });
+                if (this.state.lastAnimate === YAMLData.content.length - 1) {
+                    window.removeEventListener('scroll', this.handleScroll);
+                }
+                if (start + 1 <= end) {
+                    updateAnimation(start + 1, end);
+                }
+            }, 700);
+        }
+        
+        const currScrollPos = window.pageYOffset;
+        const divider = this.state.isMobile ? 3 : 5;
+        const counterHeights = YAMLData.content.map((_, i) => this.state.top/divider * (i + 1));
+        let i = this.state.lastAnimate;
+        while (currScrollPos > counterHeights[i+1]) {
+            i = i + 1;
+        }
+        updateAnimation(this.state.lastAnimate + 1, i);
+    }
+
+    render() {
+        const { isMobile, isTablet } = this.state;
+        const svgVerticalLength = isMobile ? 100 : (isTablet ? 65 : 40);
+        const pTopInit = isMobile ? 130 : (isTablet ? 140 : 145);
+        const svgHeight = isMobile ? 210 : (isTablet ? 225 : 245);
+        return (
+            <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.timeline}>
+                <Container>
+                    <Title>{titleLabels.timeline}</Title>
+                    <TimelineContainer>
+                        <Point top='50' className='pointLeft visible' />
+                        {YAMLData.content.map((_, i) => {
+                            const flipClass = i % 2 === 1 ? 'flipHorizontal' : '';
+                            const lastClass = i === YAMLData.content.length - 1 ? 'lastSVG' : '';
+                            const animateClass = this.state.animated[i] && this.state.lastAnimate >= i ? 'animate' : '';
+                            return (
+                                <TimelineSVG
+                                    id={`svg${i}`} key={i} idx={i}
+                                    verticalLength={svgVerticalLength}
+                                    className={`${flipClass} ${lastClass} ${animateClass}`} />
+                            );
+                        })}
+                        {YAMLData.content.map((data, i) => {
+                            const locClass = i % 2 === 0 ? 'right' : 'left';
+                            const top = pTopInit + i * svgHeight;
+                            const visibleClass = this.state.animated[i] && this.state.lastAnimate >= i ? 'visible' : '';
+                            return (
+                                <Paragraph key={i} className={`${locClass} ${visibleClass}`} top={top} id={`text${i}`}>
+                                    <h1 className='year'>{data.year}</h1>
+                                    <p className='desc'>{data.desc}</p>
+                                    <p className='loc'>{data.location}</p>
+                                    {data.skills && data.skills.map((skill, j) =>
+                                        <Skill key={j}>{skill}</Skill>
+                                    )}
+                                </Paragraph>
+                            );
+                        })}
+                        {YAMLData.content.map((_, i) => {
+                            const top = pTopInit + i * svgHeight + 13;
+                            const locClass = i % 2 === 0 ? 'pointRight' : 'pointLeft';
+                            const visibleClass = this.state.animated[i] && this.state.lastAnimate >= i ? 'visible' : '';
+                            return <Point key={i} top={top} className={`${locClass} ${visibleClass}`} id={`point${i}`} />;
+                        })}
+                    </TimelineContainer>
+                </Container>
+            </SectionContainer>
+        );
+    }
 }
 
 export default Timeline;

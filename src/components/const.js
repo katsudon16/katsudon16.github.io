@@ -1,17 +1,17 @@
 // breakpoints for responsive design
-const deviceSize = {
-    smallMax: '511px',
-    mediumMin: '512px',
-    mediumMax: '1007px',
-    largeMin: '1008px',
+export const deviceSize = {
+    smallMax: 511,
+    mediumMin: 512,
+    mediumMax: 1007,
+    largeMin: 1008,
 }
 
 export const getPx = (px) => `${px}px`;
 
 export const device = {
-    mobile: `(max-width: ${deviceSize.smallMax})`,
-    tablet: `(min-width: ${deviceSize.mediumMin}) and (max-width: ${deviceSize.mediumMax})`,
-    laptop: `(min-width: ${deviceSize.largeMin})`
+    mobile: `(max-width: ${deviceSize.smallMax}px)`,
+    tablet: `(min-width: ${deviceSize.mediumMin}px) and (max-width: ${deviceSize.mediumMax}px)`,
+    laptop: `(min-width: ${deviceSize.largeMin}px)`
 }
 
 export const palette = {

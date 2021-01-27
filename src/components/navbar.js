@@ -172,6 +172,9 @@ class NavBar extends Component {
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
+        setTimeout(() => {
+            this.scrollToSection(titleLabels.hero, 'auto');
+        }, 500);
     }
 
     componentWillUnmount() {
@@ -191,8 +194,9 @@ class NavBar extends Component {
         this.setState({ menuToggled: !this.state.menuToggled });
     }
 
-    scrollToSection = (label) => {
-        document.getElementById(label).scrollIntoView({ behavior: 'smooth' });
+    scrollToSection = (label, behavior='smooth') => {
+        this.setState({ menuToggled: false });
+        document.getElementById(label).scrollIntoView({ behavior });
     }
 
     render() {
