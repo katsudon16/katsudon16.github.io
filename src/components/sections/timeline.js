@@ -7,7 +7,7 @@ import YAMLData from '../../content/experience.yaml'
 const containerWidthLaptop = 800;
 const containerWidthTablet = 480;
 const containerWidthMobile = 300;
-const svgAnimationTime = 1; // second
+const svgAnimationTime = 1.5; // second
 
 const sectionContainerCSS = css`
     background-color: ${palette.white}
@@ -122,7 +122,7 @@ const Paragraph = styled.div`
 
     &.left {
         text-align: left;
-        left: 100%;
+        left: 70%;
         transition: opacity 1s, left 1s;
 
         &.visible {
@@ -137,7 +137,7 @@ const Paragraph = styled.div`
 
     &.right {
         text-align: right;
-        right: 100%;
+        right: 70%;
         transition: opacity 1s, right 1s;
 
         &.visible {
@@ -184,10 +184,16 @@ const Paragraph = styled.div`
         font-size: 18px;
         color: ${palette.dark};
         font-style: italic;
-        margin-bottom: 5px;
+        margin-bottom: 25px;
 
         @media ${device.mobile} {
             font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        @media ${device.tablet} {
+            font-size: 16px;
+            margin-bottom: 10px;
         }
     }
 `
@@ -294,7 +300,6 @@ class Timeline extends Component {
     handleScroll = () => {
         const updateAnimation = (start, end) => {
             setTimeout(() => {
-                console.log("timeout");
                 let { animated } = this.state;
                 animated[start] = true;
                 this.setState({
@@ -313,6 +318,7 @@ class Timeline extends Component {
         const currScrollPos = window.pageYOffset;
         const divider = this.state.isMobile ? 3 : 5;
         const counterHeights = YAMLData.content.map((_, i) => this.state.top/divider * (i + 1));
+        counterHeights[0] = counterHeights[0] - 100;
         let i = this.state.lastAnimate;
         while (currScrollPos > counterHeights[i+1]) {
             i = i + 1;

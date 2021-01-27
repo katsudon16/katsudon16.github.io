@@ -39,11 +39,16 @@ const EmailButton = styled.a`
     color: ${palette.medium};
     padding: 10px;
     border-radius: 5px;
+    font-size: 25px;
+
+    @media ${device.mobile} {
+        font-size: 20px;
+    }
 
     &:hover {
         cursor: pointer;
-        color: ${palette.dark};
-        border: 1px solid ${palette.dark};
+        color: ${palette.bgContrast};
+        border: 1px solid ${palette.bgContrast};
     }
 `
 
@@ -51,8 +56,7 @@ const Contact = () => (
     <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.contact}>
         <Container>
             <Title>{titleLabels.contact}</Title>
-            <p>Feel free to contact me or say hi!</p>
-            <EmailButton href={`mailto:{YAMLData.email}`}>Send an email!</EmailButton>
+            <EmailButton href={`mailto:{YAMLData.email}`}>Send an email</EmailButton>
         </Container>
     </SectionContainer>
 );
