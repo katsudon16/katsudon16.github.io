@@ -4,7 +4,12 @@
     font-weight: normal;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     font-family: sans-serif, Arial, Helvetica;
+    overflow-x: hidden;
 }

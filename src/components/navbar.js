@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import styled, { css } from 'styled-components'
-import { device, palette, titleLabels } from './const'
+import React, { Component } from 'react';
+import styled, { css } from 'styled-components';
+import { device, palette, titleLabels } from './const';
 
 const navbarHeight = '50px';
 const homeIconSize = '35px';
@@ -13,7 +13,7 @@ const Container = styled.div`
     position: fixed;
     width: 100%;
     height: ${navbarHeight};
-    z-index: 20;
+    z-index: 15;
     display: flex;
     justify-content: space-between;
     align-items: center;
