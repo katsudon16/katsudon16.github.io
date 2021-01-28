@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import styled, { css } from 'styled-components'
-import SectionContainer from '../section'
-import { device, palette, titleLabels } from '../const'
+import React, { Component } from 'react';
+import styled, { css } from 'styled-components';
+import SectionContainer from '../section';
+import { device, palette, titleLabels } from '../const';
+import { ArrowSVG } from '../svgs/arrow';
 
 const addBgImage = css`
     height: 100vh;
@@ -100,17 +101,13 @@ const Paragraph = styled.div`
         opacity: 1;
     }
 `
-const Arrow = styled.div`
+const Arrow = styled.a`
     position: absolute;
     bottom: 30px;
     height: 30px;
     width: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: url('arrow.svg');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
     transition: bottom 0.3s;
 
     &:hover {
@@ -118,7 +115,10 @@ const Arrow = styled.div`
         bottom: 20px;
     }
 
-    @media ${device.mobile} {
+    svg {
+        width: 100%;
+        height: 100%;
+
     }
 `
 class Hero extends Component {
@@ -130,8 +130,9 @@ class Hero extends Component {
         };
     }
     componentDidMount() {
-        setTimeout(() => { this.setState({ otherVisible: true }); }, 500);
-        setTimeout(() => { this.setState({ nameVisible: true }); }, 700);
+        document.getElementById(titleLabels.hero).scrollIntoView();
+        setTimeout(() => { this.setState({ otherVisible: true }); }, this.props.secondWait*1000);
+        setTimeout(() => { this.setState({ nameVisible: true }); }, this.props.secondWait*1000 + 200);
     }
     scrollToTimeline = () => {
         document.getElementById(titleLabels.timeline).scrollIntoView({ behavior: 'smooth' });        
@@ -149,7 +150,7 @@ class Hero extends Component {
                             I am a Master of Biomedical Informatics student at Harvard Medical School, graduating in March 2021.
                         </Paragraph>
                     </TextBox>
-                    <Arrow onClick={this.scrollToTimeline} />
+                    <Arrow onClick={this.scrollToTimeline}><ArrowSVG /></Arrow>
                 </Container>
             </SectionContainer>
         );

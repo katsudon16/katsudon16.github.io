@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SectionContainer from '../section'
 import styled, { css } from 'styled-components'
 import { device, palette, titleLabels, getPx, deviceSize } from '../const'
+import { TimelineSVG } from '../svgs/timeline'
 import YAMLData from '../../content/experience.yaml'
 
 const containerWidthLaptop = 800;
@@ -71,28 +72,6 @@ const Title = styled.h1`
     }
 `
 // timeline
-const TimelineSVG = ({
-    idx = 0,
-    className = '',
-    verticalLength = 40,
-}) => {
-    const startColor = className.includes('flipHorizontal') ? palette.dark : palette.white;
-    const stopColor = className.includes('flipHorizontal') ? palette.white : palette.dark;
-    return (
-        <svg version='1.1' className={className} viewBox={`0 0 296.9 ${verticalLength * 2 + 10}`}>
-            <defs>
-                <linearGradient id={`gradient${idx}`} x1='0%' y1='0%' x2='0%' y2='100%'>
-                    <stop offset='0%' stopColor={startColor} />
-                    <stop offset='100%' stopColor={stopColor} />
-                </linearGradient>
-            </defs>
-            <path
-                stroke={`url(#gradient${idx})`}
-                d={`M4.17,0v${verticalLength}c0,2.76,2.99,5,6.68,5h274.91c3.69,0,6.68,2.24,6.68,5v${verticalLength}`} />
-        </svg>
-    );
-}
-
 const TimelineContainer = styled.div`
     position: relative;
     margin-top: 140px;
@@ -312,7 +291,7 @@ class Timeline extends Component {
                 if (start + 1 <= end) {
                     updateAnimation(start + 1, end);
                 }
-            }, 700);
+            }, 800);
         }
         
         const currScrollPos = window.pageYOffset;

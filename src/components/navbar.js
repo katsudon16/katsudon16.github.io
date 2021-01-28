@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { device, palette, titleLabels } from './const';
+import { SosmedIcons } from './svgs/sosmed';
+import { HomeSVG, CrossSVG, MenuSVG } from './svgs/navbar';
 
 const navbarHeight = '50px';
 const homeIconSize = '35px';
@@ -24,55 +26,48 @@ const Container = styled.div`
     &.visible {
         top: 0;
     }
-`
-// Left menu (Home)
-const LeftMenu = styled.div`
-    height: ${homeIconSize};
-    width: ${homeIconSize};
-    margin-left: 50px;
-    background: url('home.svg');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
 
-    &:hover {
-        cursor: pointer;
-        background: url('home_hover.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
+    #linkHome {
+        height: ${homeIconSize};
+        width: ${homeIconSize};
+        margin-left: 50px;
+        @media ${device.mobile} {
+            margin-left: 10px;
+        }
+        #iconHome {
+            height: 100%;
+            width: 100%;
+            stroke: ${palette.white};
+            &:hover {
+                cursor: pointer;
+                stroke: ${palette.bgContrast};
+            }
+        }
     }
 
-    @media ${device.mobile} {
-        margin-left: 10px;
+    #linkMenu {
+        height: ${menuIconSize};
+        width: ${menuIconSize};
+        margin-right: 50px;
+        @media ${device.mobile} {
+            margin-right: 10px;
+        }
+        @media ${device.laptop} {
+            display: none;
+        }
+        #iconMenu {
+            stroke: ${palette.white};
+            height: 100%;
+            width: 100%;
+            &:hover {
+                cursor: pointer;
+                stroke: ${palette.bgContrast};
+            }
+        }
     }
 `
+
 // Right menu (all sections)
-const RightMenuIcon = styled.div`
-    height: ${menuIconSize};
-    width: ${menuIconSize};
-    margin-right: 50px;
-    background: url('menu.svg');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-
-    &:hover {
-        cursor: pointer;
-        background: url('menu_hover.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
-
-    @media ${device.mobile} {
-        margin-right: 10px;
-    }
-
-    @media ${device.laptop} {
-        display: none;
-    }
-`
 const RightMenuMobileTablet = css`
     flex-direction: column;
     background-color: rgb(3, 25, 38);
@@ -107,29 +102,27 @@ const RightMenuContainer = styled.div`
 const CloseIconContainer = styled.div`
     width: ${sectionMenuContainerWidth};
     box-sizing: border-box;
-`
-const CloseIcon = styled.div`
-    height: ${closeIconSize};
-    width: ${closeIconSize};
-    margin: 20px;
-    float: right;
-    position: relative;
-    background: url('close.svg');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
 
-    &:hover {
-        cursor: pointer;
-        background: url('close_hover.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
+    a {
+        height: ${closeIconSize};
+        width: ${closeIconSize};
+        margin: 20px;
+        float: right;
+        position: relative;
+        @media ${device.laptop} {
+            display: none;
+        }
+        #iconCross {
+            stroke: ${palette.white};
+            height: 100%;
+            width: 100%;
+            &:hover {
+                cursor: pointer;
+                stroke: ${palette.bgContrast};
+            }
+        }
     }
 
-    @media ${device.laptop} {
-        display: none;
-    }
 `
 const SectionMenuMobileTablet = css`
     display: block;
@@ -159,22 +152,52 @@ const SectionMenu = styled.a`
         ${SectionMenuMobileTablet}
     }
 `
+const SosmedContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
+    @media ${device.tablet} {
+        justify-content: left;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    @media ${device.mobile} {
+        justify-content: left;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    svg {
+        display: inline-block;
+        fill: ${palette.white};
+        height: 30px;
+        width: 30px;
+        margin: 0 5px;
+        pointer-events: auto;
+
+        &:hover {
+            cursor: pointer;
+            fill: ${palette.bgContrast};
+        }
+    }
+`
 class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             prevScrollPos: window.pageYOffset,
             menuToggled: false,
-            visible: true,
+            visible: false,
         }
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
         setTimeout(() => {
-            this.scrollToSection(titleLabels.hero, 'auto');
-        }, 500);
+            this.setState({ visible: true });
+            window.addEventListener('scroll', this.handleScroll);
+        }, this.props.secondWait * 1000);
     }
 
     componentWillUnmount() {
@@ -200,17 +223,24 @@ class NavBar extends Component {
     }
 
     render() {
+        const sosmeds = ['facebook', 'linkedin', 'github'];
         return (
             <Container className={this.state.visible ? 'visible' : ''}>
-                <LeftMenu onClick={() => this.scrollToSection(titleLabels.hero)} />
-                <RightMenuIcon onClick={this.toggleRightMenu} />
+                <a id={'linkHome'} onClick={() => this.scrollToSection(titleLabels.hero)}><HomeSVG /></a>
+                <a id={'linkMenu'} onClick={this.toggleRightMenu}><MenuSVG /></a>
                 <RightMenuContainer className={this.state.menuToggled ? 'visible' : null}>
                     <CloseIconContainer>
-                        <CloseIcon onClick={this.toggleRightMenu} />
+                        <a id={'linkCross'} onClick={this.toggleRightMenu}><CrossSVG /></a>
                     </CloseIconContainer>
                     <SectionMenu onClick={() => this.scrollToSection(titleLabels.timeline)}>{titleLabels.timeline}</SectionMenu>
                     <SectionMenu onClick={() => this.scrollToSection(titleLabels.publication)}>{titleLabels.publication}</SectionMenu>
                     <SectionMenu onClick={() => this.scrollToSection(titleLabels.contact)}>{titleLabels.contact}</SectionMenu>
+                    <SosmedContainer>
+                        {sosmeds.map((sosmed, i) => {
+                            const Icon = SosmedIcons[sosmed];
+                            return <Icon key={i} />;
+                        })}
+                    </SosmedContainer>
                 </RightMenuContainer>
             </Container>
         );

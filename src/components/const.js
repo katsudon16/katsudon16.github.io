@@ -17,6 +17,7 @@ export const device = {
 export const palette = {
     bg: '#031926',
     bgContrast: '#9DF9EA',
+    bgContrastDark: '#86dbcd',
     dark: '#156799',
     medium: '#043e61',
     light: '#c0e5fb',

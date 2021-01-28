@@ -2,7 +2,8 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { device, palette, titleLabels, getPx } from '../const'
 import SectionContainer from '../section'
-import YAMLData from '../../content/publication.yaml'
+import YAMLData from '../../content/contact.yaml'
+import { SosmedIcons } from '../svgs/sosmed';
 
 const sectionContainerCSS = css`
     background-color: ${palette.white}
@@ -51,14 +52,44 @@ const EmailButton = styled.a`
         border: 1px solid ${palette.bgContrast};
     }
 `
+const SosmedContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
 
-const Contact = () => (
-    <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.contact}>
-        <Container>
-            <Title>{titleLabels.contact}</Title>
-            <EmailButton href={`mailto:{YAMLData.email}`}>Send an email</EmailButton>
-        </Container>
-    </SectionContainer>
-);
+    svg {
+        display: inline-block;
+        fill: ${palette.medium};
+        height: 30px;
+        width: 30px;
+        margin: 0 5px;
+        pointer-events: auto;
+
+        &:hover {
+            cursor: pointer;
+            fill: ${palette.bgContrast};
+        }
+    }
+`
+const Contact = () => {
+    const sosmeds = ['facebook', 'linkedin', 'github'];
+    return (
+        <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.contact}>
+            <Container>
+                <Title>{titleLabels.contact}</Title>
+                <EmailButton href={`mailto:${YAMLData.email}`}>Send an email</EmailButton>
+                <SosmedContainer>
+                    {sosmeds.map((sosmed, i) => {
+                        const Icon = SosmedIcons[sosmed];
+                        return <Icon key={i} />;
+                    })}
+                </SosmedContainer>
+            </Container>
+        </SectionContainer>
+    );
+}
 
 export default Contact;
