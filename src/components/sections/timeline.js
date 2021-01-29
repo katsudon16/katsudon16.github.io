@@ -284,7 +284,7 @@ class Timeline extends Component {
                 if (start + 1 <= end) {
                     updateAnimation(start + 1, end);
                 }
-            }, 800);
+            }, 900);
         }
         
         const currScrollPos = window.pageYOffset;
@@ -300,9 +300,9 @@ class Timeline extends Component {
 
     render() {
         const { isMobile, isTablet } = this.state;
-        const svgVerticalLength = isMobile ? 100 : (isTablet ? 65 : 40);
-        const pTopInit = isMobile ? 130 : (isTablet ? 140 : 145);
-        const svgHeight = isMobile ? 210 : (isTablet ? 225 : 245);
+        const svgVerticalLength = isMobile ? 110 : (isTablet ? 65 : 40);
+        const pTopInit = isMobile ? 140 : (isTablet ? 140 : 145);
+        const svgHeight = isMobile ? 235 : (isTablet ? 225 : 245);
         return (
             <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.timeline}>
                 <Container>

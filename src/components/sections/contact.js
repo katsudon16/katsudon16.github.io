@@ -79,7 +79,7 @@ const Contact = () => {
     return (
         <SectionContainer addCSS={sectionContainerCSS} id={titleLabels.contact}>
             <Container>
-                <Title>{titleLabels.contact}</Title>
+                <Title>{`${titleLabels.contact}?`}</Title>
                 <EmailButton href={`mailto:${YAMLData.email}`}>Send an email</EmailButton>
                 <SosmedContainer>
                     {sosmeds.map((sosmed, i) => {
