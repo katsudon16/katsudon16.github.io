@@ -1,9 +1,16 @@
 // breakpoints for responsive design
-export const deviceSize = {
+const deviceSize = {
     smallMax: 511,
     mediumMin: 512,
     mediumMax: 1007,
     largeMin: 1008,
+}
+
+export const getWindowType = () => {
+    const width = window.innerWidth;
+    if (width <= deviceSize.smallMax) return 'mobile';
+    if (width >= deviceSize.largeMin) return 'laptop';
+    return 'tablet';
 }
 
 export const getPx = (px) => `${px}px`;

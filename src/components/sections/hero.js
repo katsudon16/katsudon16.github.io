@@ -101,7 +101,7 @@ const Paragraph = styled.div`
         opacity: 1;
     }
 `
-const Arrow = styled.a`
+const Arrow = styled.div`
     position: absolute;
     bottom: 30px;
     height: 30px;
@@ -150,7 +150,7 @@ class Hero extends Component {
                             I am a Master of Biomedical Informatics student at Harvard Medical School, graduating in March 2021.
                         </Paragraph>
                     </TextBox>
-                    <Arrow onClick={this.scrollToTimeline}><ArrowSVG /></Arrow>
+                    <Arrow aria-label='Next' onClick={this.scrollToTimeline}><ArrowSVG /></Arrow>
                 </Container>
             </SectionContainer>
         );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SectionContainer from '../section'
 import styled, { css } from 'styled-components'
-import { device, palette, titleLabels, getPx, deviceSize } from '../const'
+import { device, palette, titleLabels, getPx, getWindowType } from '../const'
 import { TimelineSVG } from '../svgs/timeline'
 import YAMLData from '../../content/experience.yaml'
 
@@ -237,7 +237,7 @@ const Point = styled.div`
 class Timeline extends Component {
     constructor(props) {
         super(props);
-        const windowType = this.getWindowType();
+        const windowType = getWindowType();
         this.state = {
             isMobile: windowType === 'mobile',
             isTablet: windowType === 'tablet',
@@ -261,15 +261,8 @@ class Timeline extends Component {
         window.removeEventListener('resize', this.handleResize);
     }
 
-    getWindowType = () => {
-        const width = window.innerWidth;
-        if (width <= deviceSize.smallMax) return 'mobile';
-        if (width >= deviceSize.largeMin) return 'laptop';
-        return 'tablet';
-    }
-
     handleResize = () => {
-        const windowType = this.getWindowType();
+        const windowType = getWindowType();
         this.setState({
             isMobile: windowType === 'mobile',
             isTablet: windowType === 'tablet',

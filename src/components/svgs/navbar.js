@@ -22,11 +22,7 @@ export const HomeSVG = () =>
         id='iconHome' version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 82.55 68.52'
         style={{ fill: 'none', strokeWidth: 8, strokeMiterlimit: 10 }}>
         <polyline points='5,31.52 41.28,6.85 77.55,31.52 '/>
-        <path d='M61.43,31.52'/>
-        <path d='M77.55,31.52'/>
-        <path d='M93.68,6.78v39.99h16.12V27.11c0-3.22,2.61-5.84,5.84-5.84h4.39c3.23,0,5.84,2.61,5.84,5.84v19.66h16.12V6.78' />
         <polyline points='49.31,63.51 65.43,63.51 65.43,23.52 '/>
-        <path d='M39.08,38.01'/>
         <polyline points='17.12,23.52 17.12,63.51 52.79,63.51 '/>
     </svg>;
 

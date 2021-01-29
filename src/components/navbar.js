@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { device, palette, titleLabels } from './const';
+import { device, palette, titleLabels, getWindowType } from './const';
 import { SosmedIcons } from './svgs/sosmed';
 import { HomeSVG, CrossSVG, MenuSVG } from './svgs/navbar';
 
@@ -103,7 +103,7 @@ const CloseIconContainer = styled.div`
     width: ${sectionMenuContainerWidth};
     box-sizing: border-box;
 
-    a {
+    div {
         height: ${closeIconSize};
         width: ${closeIconSize};
         margin: 20px;
@@ -189,27 +189,36 @@ class NavBar extends Component {
         this.state = {
             prevScrollPos: window.pageYOffset,
             menuToggled: false,
-            visible: false,
+            visibleNav: false,
+            showMenu: getWindowType() === 'laptop',
         }
     }
 
     componentDidMount() {
         setTimeout(() => {
-            this.setState({ visible: true });
+            this.setState({ visibleNav: true });
             window.addEventListener('scroll', this.handleScroll);
         }, this.props.secondWait * 1000);
+        window.addEventListener('resize', this.handleResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll)
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
     }
 
     handleScroll = () => {
         const currScrollPos = window.pageYOffset;
         const prevScrollPos = this.state.prevScrollPos;
         this.setState({
-            visible: currScrollPos < prevScrollPos || currScrollPos === 0,
+            visibleNav: currScrollPos < prevScrollPos || currScrollPos === 0,
             prevScrollPos: currScrollPos,
+        });
+    }
+
+    handleResize = () => {
+        this.setState({
+            showMenu: getWindowType() === 'laptop',
         });
     }
 
@@ -224,21 +233,38 @@ class NavBar extends Component {
 
     render() {
         const sosmeds = ['facebook', 'linkedin', 'github'];
+        const menus = [titleLabels.timeline, titleLabels.publication, titleLabels.contact];
         return (
-            <Container className={this.state.visible ? 'visible' : ''}>
-                <a id={'linkHome'} onClick={() => this.scrollToSection(titleLabels.hero)}><HomeSVG /></a>
-                <a id={'linkMenu'} onClick={this.toggleRightMenu}><MenuSVG /></a>
+            <Container className={this.state.visibleNav ? 'visible' : ''}>
+                <div
+                    id={'linkHome'} aria-label='Home' role='button'
+                    tabIndex={0}
+                    onClick={() => this.scrollToSection(titleLabels.hero)}
+                    onKeyDown={(e) => e.key === 'Enter' && this.scrollToSection(titleLabels.hero)}><HomeSVG /></div>
+                <div
+                    id={'linkMenu'} aria-label='Show menu' role='button'
+                    tabIndex={this.state.showMenu ? -1 : 0}
+                    onClick={this.toggleRightMenu}
+                    onKeyDown={(e) => e.key === 'Enter' && this.toggleRightMenu()}><MenuSVG /></div>
                 <RightMenuContainer className={this.state.menuToggled ? 'visible' : null}>
                     <CloseIconContainer>
-                        <a id={'linkCross'} onClick={this.toggleRightMenu}><CrossSVG /></a>
+                        <div
+                            id={'linkCross'} aria-label='Close menu' role='button'
+                            tabIndex={this.state.menuToggled ? 0 : -1}
+                            onClick={this.toggleRightMenu}
+                            onKeyDown={(e) => e.key === 'Enter' && this.toggleRightMenu()}><CrossSVG /></div>
                     </CloseIconContainer>
-                    <SectionMenu onClick={() => this.scrollToSection(titleLabels.timeline)}>{titleLabels.timeline}</SectionMenu>
-                    <SectionMenu onClick={() => this.scrollToSection(titleLabels.publication)}>{titleLabels.publication}</SectionMenu>
-                    <SectionMenu onClick={() => this.scrollToSection(titleLabels.contact)}>{titleLabels.contact}</SectionMenu>
+                    {menus.map((data, i) =>
+                        <SectionMenu
+                            key={i}
+                            tabIndex={this.state.menuToggled || this.state.showMenu ? 0 : -1}
+                            onKeyDown={(e) => e.key === 'Enter' && this.scrollToSection(data)}
+                            onClick={() => this.scrollToSection(data)}>{data}</SectionMenu>
+                    )}
                     <SosmedContainer>
                         {sosmeds.map((sosmed, i) => {
                             const Icon = SosmedIcons[sosmed];
-                            return <Icon key={i} />;
+                            return <Icon key={i} tabIndex={this.state.menuToggled || this.state.showMenu ? 0 : -1} />;
                         })}
                     </SosmedContainer>
                 </RightMenuContainer>

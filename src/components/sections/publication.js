@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { device, palette, titleLabels, getPx } from '../const'
+import { device, palette, titleLabels } from '../const'
 import SectionContainer from '../section'
 import YAMLData from '../../content/publication.yaml'
 
