@@ -8,7 +8,7 @@ const navbarHeight = '50px';
 const homeIconSize = '35px';
 const menuIconSize = '25px';
 const closeIconSize = '20px';
-const sectionMenuWidth = '180px';
+const sectionMenuWidth = '170px';
 const sectionMenuContainerWidth = '240px'; // tablet/mobile only
 
 const Container = styled.div`
@@ -129,7 +129,7 @@ const SectionMenuMobileTablet = css`
     padding: 20px;
     width: 100%;
 `
-const SectionMenu = styled.a`
+const SectionMenuStyle = css`
     width: ${sectionMenuWidth};
     box-sizing: border-box;
     color: ${palette.white};
@@ -138,11 +138,6 @@ const SectionMenu = styled.a`
     align-items: center;
     font-size: 20px;
     text-transform: capitalize;
-    text-decoration: none;
-    &:hover {
-        cursor: pointer;
-        color: ${palette.bgContrast};
-    }
 
     @media ${device.mobile} {
         ${SectionMenuMobileTablet}
@@ -150,6 +145,35 @@ const SectionMenu = styled.a`
 
     @media ${device.tablet} {
         ${SectionMenuMobileTablet}
+    }
+`
+const SectionMenu = styled.a`
+    ${SectionMenuStyle}
+    text-decoration: none;
+    &:hover {
+        cursor: pointer;
+        color: ${palette.bgContrast};
+    }
+`
+const ResumeMenu = styled.div`
+    ${SectionMenuStyle}
+    .resume {
+        color: ${palette.bgContrast};
+        text-decoration: none;
+        padding: 8px;
+
+        &:hover {
+            cursor: pointer;
+            border: 1px solid ${palette.bgContrast};
+            border-radius: 5px;
+        }
+
+        @media ${device.tablet} {
+            margin-left: -5px;
+        }
+        @media ${device.mobile} {
+            margin-left: -5px;
+        }
     }
 `
 const SosmedContainer = styled.div`
@@ -261,6 +285,11 @@ class NavBar extends Component {
                             onKeyDown={(e) => e.key === 'Enter' && this.scrollToSection(data)}
                             onClick={() => this.scrollToSection(data)}>{data}</SectionMenu>
                     )}
+                    <ResumeMenu>
+                        <a
+                            className='resume' href='Resume.pdf' target='_blank'
+                            tabIndex={this.state.menuToggled || this.state.showMenu ? 0 : -1}>Resume</a>
+                    </ResumeMenu>
                     <SosmedContainer>
                         {sosmeds.map((sosmed, i) => {
                             const Icon = SosmedIcons[sosmed];

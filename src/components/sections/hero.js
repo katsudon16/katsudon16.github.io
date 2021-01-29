@@ -147,7 +147,7 @@ class Hero extends Component {
                         <Title1 className={otherVisible}><h2>Hello, my name is</h2></Title1>
                         <Title2 className={nameVisible}><h1>Kathleen Sucipto</h1></Title2>
                         <Paragraph className={otherVisible}>
-                            I am a Master of Biomedical Informatics student at Harvard Medical School, graduating in March 2021.
+                            I am a Master of Biomedical Informatics student at Harvard Medical School, officially graduating in March 2021.
                         </Paragraph>
                     </TextBox>
                     <Arrow aria-label='Next' onClick={this.scrollToTimeline}><ArrowSVG /></Arrow>
