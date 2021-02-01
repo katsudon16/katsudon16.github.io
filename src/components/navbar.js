@@ -158,12 +158,15 @@ const SectionMenu = styled.a`
 const ResumeMenu = styled.div`
     ${SectionMenuStyle}
     .resume {
-        color: ${palette.bgContrast};
+        color: ${palette.white};
+        border: 1px solid ${palette.white};
+        border-radius: 5px;
         text-decoration: none;
         padding: 8px;
 
         &:hover {
             cursor: pointer;
+            color: ${palette.bgContrast};
             border: 1px solid ${palette.bgContrast};
             border-radius: 5px;
         }
@@ -211,14 +214,17 @@ class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            prevScrollPos: window.pageYOffset,
+            prevScrollPos: 0,
             menuToggled: false,
             visibleNav: false,
-            showMenu: getWindowType() === 'laptop',
+            showMenu: false,
         }
     }
 
     componentDidMount() {
+        this.setState({
+            showMenu: getWindowType() === 'laptop',
+        });
         setTimeout(() => {
             this.setState({ visibleNav: true });
             window.addEventListener('scroll', this.handleScroll);

@@ -24,26 +24,36 @@ const Title = styled.h1`
 
     @media ${device.mobile} {
         font-size: 50px;
+        padding: 20px 0;
+        padding-left: 10px;
+        margin: 25px 0;
     }
 `
 const Item = styled.div`
-    width: 100%;
     margin-top: 70px;
-    margin-left: 60px;
+    padding-left: 60px;
     font-size: 18px;
 
     @media ${device.mobile} {
-        margin-left: 20px;
+        margin-top: 50px;
+        padding-left: 20px;
+        padding-right: 5px;
+        font-size: 16px;
     }
 
     a {
-        font-size: 24px;
-        font-weight: bold;
         text-decoration: none;
-        color: ${palette.bgContrast};
         &:hover {
             color: ${palette.light};
             cursor: pointer;
+        }
+        p {
+            font-size: 24px;
+            font-weight: bold;
+            color: ${palette.bgContrast};
+            @media ${device.mobile} {
+                font-size: 20px;
+            }
         }
     }
 
@@ -58,7 +68,7 @@ const Publication = () => (
             {YAMLData.content.map((data, i) => {
                 return (
                     <Item key={i}>
-                        <a href={data.link}>{data.title}</a>
+                        <a href={data.link}><p>{data.title}</p></a>
                         <p>{data.authors}</p>
                         <p><em>{data.loc}</em>{`, ${data.year}`}</p>
                     </Item>

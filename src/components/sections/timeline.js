@@ -8,7 +8,7 @@ import YAMLData from '../../content/experience.yaml'
 const containerWidthLaptop = 800;
 const containerWidthTablet = 480;
 const containerWidthMobile = 300;
-const svgAnimationTime = 1.5; // second
+const svgAnimationTime = 2; // second
 
 const sectionContainerCSS = css`
     background-color: ${palette.white}
@@ -237,19 +237,22 @@ const Point = styled.div`
 class Timeline extends Component {
     constructor(props) {
         super(props);
-        const windowType = getWindowType();
         this.state = {
-            isMobile: windowType === 'mobile',
-            isTablet: windowType === 'tablet',
+            isMobile: false,
+            isTablet: false,
             top: 0,
             lastAnimate: -1,
+            startAnimating: false,
             animated: YAMLData.content.map((_, i) => false),
         }
     }
 
     componentDidMount() {
         const div = document.getElementById(titleLabels.timeline);
+        const windowType = getWindowType();
         this.setState({
+            isMobile: windowType === 'mobile',
+            isTablet: windowType === 'tablet',
             top: div.getBoundingClientRect().top,
         })
         window.addEventListener('scroll', this.handleScroll);
@@ -277,6 +280,7 @@ class Timeline extends Component {
                 this.setState({
                     animated,
                     lastAnimate: start,
+                    startAnimating: true,
                 });
                 if (this.state.lastAnimate === YAMLData.content.length - 1) {
                     window.removeEventListener('scroll', this.handleScroll);
@@ -284,7 +288,7 @@ class Timeline extends Component {
                 if (start + 1 <= end) {
                     updateAnimation(start + 1, end);
                 }
-            }, 900);
+            }, this.state.startAnimating ? 1200 : 200);
         }
         
         const currScrollPos = window.pageYOffset;

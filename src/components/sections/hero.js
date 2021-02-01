@@ -109,12 +109,18 @@ const Arrow = styled.div`
     left: 50%;
     transform: translateX(-50%);
     transition: bottom 0.3s;
-
+    @media ${device.mobile} {
+        bottom: 15px;
+        height: 20px;
+        width: 20px;
+    }
     &:hover {
         cursor: pointer;
         bottom: 20px;
+        @media ${device.mobile} {
+            bottom: 10px;
+        }
     }
-
     svg {
         width: 100%;
         height: 100%;
