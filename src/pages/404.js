@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { palette } from '../components/const';
+import { palette, device } from '../components/const';
 import styled from 'styled-components';
 import { HomeSVG } from '../components/svgs/navbar';
 import '../styles/global.scss';
@@ -20,13 +20,17 @@ const Content = styled.div`
     .mainTitle {
         position: relative;
         height: 300px;
+        padding: 20px;
+        @media ${device.mobile} {
+            height: 150px;
+        };
         
         h1 {
             top: -60px;
-            width: 100%;
+            width: 90vw;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 120px;
+            font-size: 100px;
             margin: 0;
             color: ${palette.white};
             font-family: Allura;
@@ -38,7 +42,10 @@ const Content = styled.div`
                 top: 0;
                 opacity: 1;
             }
-    
+
+            @media ${device.mobile} {
+                font-size: 50px;
+            }
         }
     }
 
@@ -50,6 +57,9 @@ const Content = styled.div`
 
         &.visible {
             opacity: 1;
+        }
+        @media ${device.mobile} {
+            font-size: 20px;
         }
     }
     a {
@@ -69,6 +79,10 @@ const Content = styled.div`
             &:hover {
                 cursor: pointer;
                 stroke: ${palette.bgContrast};
+            }
+            @media ${device.mobile} {
+                height: 70px;
+                width: 70px;
             }
         }
     }
