@@ -5,8 +5,7 @@
  */
 
 module.exports = {
-  plugins: [`gatsby-plugin-sass`],
-  flags: {
-    DEV_SSR: false,
-  },
+  plugins: [
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-styled-components`],
 }
