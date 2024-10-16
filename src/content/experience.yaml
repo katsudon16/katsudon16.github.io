@@ -14,8 +14,13 @@ content:
   desc: Took my first step in shifting my career from software engineering to the biomedical field! Worked as a research assistant on modeling Dengue dynamics in Hong Kong.
   location: Department of Biomedical Sciences, City University of Hong Kong
   skills: ['R', 'Python']
-- year: 2019 - Present
+- year: 2019 - 2021
   work: false
-  desc: Pursuing a Master of Biomedical Informatics.
+  desc: Pursued a Master of Biomedical Informatics.
   location: Harvard Medical School, Boston
   skills: ~
+- year: 2021 - Present
+  work: true
+  desc: Working as a Machine Learning Enginner focusing on inflammatory bowel disease
+  location: PathAI, Boston
+  skills: ['Python', 'NumPy', 'PyTorch', 'Pandas']

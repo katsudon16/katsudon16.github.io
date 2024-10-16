@@ -1,16 +1,31 @@
 content:
+- title: 'Quantitative and explainable artificial intelligence (AI)-powered approaches to predict ulcerative colitis disease activity from hematoxylin and eosin (H&E)-stained whole slide images (WSI).'
+  authors: Sucipto, K., Khosla, A., Drage, M., Wang, Y., Fahy, D., Lin, M., ... & Najdawi, F.
+  year: 2023
+  loc: Inflammatory Bowel Diseases
+  link: https://academic.oup.com/ibdjournal/article/29/Supplement_1/S22/7005525
+- title: 'Artificial intelligence enables quantitative assessment of ulcerative colitis histology.'
+  authors: Najdawi, F., Sucipto, K., Mistry, P., Hennek, S., Jayson, C. K., Lin, M., ... & Drage, M. G.
+  year: 2023
+  loc: Modern Pathology
+  link: https://www.sciencedirect.com/science/article/pii/S0893395223000297
+- title: 'High-sensitivity pattern discovery in large, paired multiomic datasets.'
+  authors: Ghazi, A. R., Sucipto, K., Rahnavard, A., Franzosa, E. A., McIver, L. J., Lloyd-Price, J., ... & Huttenhower, C.
+  year: 2022
+  loc: Bioinformatics
+  link: https://www.nature.com/articles/s41598-020-60309-7
 - title: 'The effects of seasonal climate variability on dengue annual incidence in Hong Kong: A modelling study.'
-  authors: Hsiang-Yu Yuan, Jingbo Liang, Pei-Sheng Lin, Kathleen Sucipto, Mesfin Mengesha Tsegaye, Tzai-Hung Wen, Susanne Pfeiffer, and Dirk Pfeiffer.
+  authors: Yuan, H. Y., Liang, J., Lin, P. S., Sucipto, K., Tsegaye, M. M., Wen, T. H., ... & Pfeiffer, D.
   year: 2020
   loc: Scientific reports
   link: https://www.nature.com/articles/s41598-020-60309-7
 - title: Keep your nice friends close, but your rich friends closer—computation offloading using nfc
-  authors: Kathleen Sucipto, Dimitris Chatzopoulos, Sokol Kosta, Pan Hui
+  authors: Sucipto, K., Chatzopoulos, D., Kosta, S., & Hui, P.
   year: 2017
   loc: IEEE INFOCOM 2017 - IEEE Conference on Computer Communications
   link: https://ieeexplore.ieee.org/abstract/document/8057147/
 - title: 'Video compression in the neighborhood: An opportunistic approach'
-  authors: Dimitris Chatzopoulos, Kathleen Sucipto, Sokol Kosta, Pan Hui
+  authors: Chatzopoulos, D., Sucipto, K., Kosta, S., & Hui, P.
   year: 2016
   loc: IEEE International Conference on Communications (ICC)
   link: https://ieeexplore.ieee.org/abstract/document/7511320
