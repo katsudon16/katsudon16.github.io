@@ -21,6 +21,6 @@ content:
   skills: ~
 - year: 2021 - Present
   work: true
-  desc: Working as a Machine Learning Enginner focusing on inflammatory bowel disease
+  desc: Working as a Machine Learning Engineer focusing on inflammatory bowel disease
   location: PathAI, Boston
   skills: ['Python', 'NumPy', 'PyTorch', 'Pandas']
